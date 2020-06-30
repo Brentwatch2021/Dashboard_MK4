@@ -38,22 +38,27 @@ namespace Dashboard_MK4
         {
             // Email service implementation having issue with authentication from the client side
             // unable to authenticate into email servers
+            /*
             var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
             services.AddSingleton(emailConfig);
-            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailSender, EmailSender>();*/
 
-            services.AddDbContext<JobCard_TaskDescriptions_Context>(opts => opts.UseSqlServer(Configuration["ConnectionString:Azure_Server_DB"]));
-            services.AddDbContext<JTFA_Task_Description_Context>(opts => opts.UseSqlServer(Configuration["ConnectionString:Azure_Server_DB"]));
+            string prodEnvDb = Configuration["ConnectionString:Azure_Server_DB"];
+            string devEnvDb = Configuration["ConnectionString:EmployeeDBMk4"];
+            string envDb = prodEnvDb;
+
+            services.AddDbContext<JobCard_TaskDescriptions_Context>(opts => opts.UseSqlServer(envDb));
+            services.AddDbContext<JTFA_Task_Description_Context>(opts => opts.UseSqlServer(envDb));
             services.AddScoped<ITaskDescription_Data_Repository<TaskDescription>, TaskDescription_Data_Manager>();
             services.AddScoped<IJobCardV3DataRepository<JobCardV3>, JobCardV3_Manager>();
-            services.AddDbContext<JTFA_Client_Context>(opts => opts.UseSqlServer(Configuration["ConnectionString:Azure_Server_DB"]));
+            services.AddDbContext<JTFA_Client_Context>(opts => opts.UseSqlServer(envDb));
             services.AddScoped<IJTFA_Client_Data_Repository<JTFA_Client>, JTFA_Client_Manager>();
-            services.AddDbContext<Vehicle_Context>(opts => opts.UseSqlServer(Configuration["ConnectionString:Azure_Server_DB"]));
+            services.AddDbContext<Vehicle_Context>(opts => opts.UseSqlServer(envDb));
             services.AddScoped<IVehicleDataRepository<Vehicle>, Vehicle_Manager>();
             services.AddScoped<IJTFA_Client_Data_Repository<JTFA_Client>, JTFA_Client_Manager>();
             services.AddScoped<IJobCardDataRepository<Job_Card>, Job_Card_Manager>();
-            services.AddDbContext<Job_Card_Context>(opts => opts.UseSqlServer(Configuration["ConnectionString:Azure_Server_DB"]));
-            services.AddDbContext<EmployeeContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:Azure_Server_DB"]));
+            services.AddDbContext<Job_Card_Context>(opts => opts.UseSqlServer(envDb));
+            services.AddDbContext<EmployeeContext>(opts => opts.UseSqlServer(envDb));
             services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
             services.AddControllers();
 

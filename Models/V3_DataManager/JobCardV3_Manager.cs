@@ -1,6 +1,7 @@
 ﻿using Dashboard_MK4.Models.V2_Models;
 using Dashboard_MK4.Models.V3_Models;
 using Dashboard_MK4.Models.V3_Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Dashboard_MK4.Models.V3_DataManager
 {
     public class JobCardV3_Manager : IJobCardV3DataRepository<JobCardV3>
     {
-        readonly JobCard_TaskDescriptions_Context _jobCard_TaskDescriptions_Context;
+        public readonly JobCard_TaskDescriptions_Context _jobCard_TaskDescriptions_Context;
 
         public JobCardV3_Manager(JobCard_TaskDescriptions_Context jobCard_TaskDescriptions_Context)
         {
@@ -79,30 +80,95 @@ namespace Dashboard_MK4.Models.V3_DataManager
         public JobCardV3 Get(Guid id)
         {
             JobCardV3 jobcardV3 = new JobCardV3();
-            jobcardV3 = _jobCard_TaskDescriptions_Context.JobCardsV3.Where(p => p.JobCardID == id).FirstOrDefault();
-            _jobCard_TaskDescriptions_Context.TaskDescriptions.ToList();
-            _jobCard_TaskDescriptions_Context.Vehicles.ToList();
+            jobcardV3 = _jobCard_TaskDescriptions_Context.JobCardsV3.Where(p => p.JobCardID == id).Include(j => j.JTFA_Client).Include(j => j.Vehicle).Include(j => j.TaskDescriptions).FirstOrDefault();
             return jobcardV3;
         }
 
         public IEnumerable<JobCardV3> GetAll()
         {
-            List<JobCardV3> v3jobCards = new List<JobCardV3>();
-            List<TaskDescriptionV3> taskDescriptions = new List<TaskDescriptionV3>();
-
-            // Test 
-            List<JobCardV3> v3jobCards_test = _jobCard_TaskDescriptions_Context.JobCardsV3.ToList();
-            List<TaskDescriptionV3> taskDescriptions_test = _jobCard_TaskDescriptions_Context.TaskDescriptions.ToList();
-            List<Vehicle> vehices = _jobCard_TaskDescriptions_Context.Vehicles.ToList();
-            v3jobCards.AddRange(v3jobCards_test);
-
-            return v3jobCards;
+          
+            List<JobCardV3> jobcards = _jobCard_TaskDescriptions_Context.JobCardsV3.ToList();
+            //jobcards.Add(jobcardTest);
+            return jobcards;
+            //return _jobCard_TaskDescriptions_Context.JobCardsV3.Include(jc => jc.Vehicle).Include(jcc => jcc.JTFA_Client).Include(jct => jct.TaskDescriptions).ToList(); ;
         }
 
         public void Update(JobCardV3 dbEntity, JobCardV3 entity)
         {
             dbEntity.JobCardName = entity.JobCardName;
+            if(dbEntity?.Vehicle?.Vehicle_ID != entity?.Vehicle?.Vehicle_ID)
+            {
+                dbEntity.Vehicle = entity.Vehicle;
+            }
+            if (dbEntity?.JTFA_Client.JTFA_CLIENT_ID != entity?.JTFA_Client?.JTFA_CLIENT_ID)
+            {
+                dbEntity.JTFA_Client = entity.JTFA_Client;
+            }
+            UpdateTaskDecriptions(dbEntity, entity);
             _jobCard_TaskDescriptions_Context.SaveChanges();
+        }
+
+        private void UpdateTaskDecriptions(JobCardV3 dbEntity, JobCardV3 entity)
+        {
+            foreach (TaskDescriptionV3 td3 in entity.TaskDescriptions)
+            {
+                if (td3.Task_Description_ID == Guid.Empty)
+                {
+                    // addition
+                    dbEntity.TaskDescriptions.Add(td3);
+                }
+                else
+                {
+                    // Update
+                    TaskDescriptionV3 taskDescriptionUpdate = dbEntity.TaskDescriptions.
+                        Where(td => td.Task_Description_ID == td3.Task_Description_ID).FirstOrDefault();
+
+                    if (taskDescriptionUpdate.Description != td3.Description)
+                    {
+                        taskDescriptionUpdate.Description = td3.Description;
+                    }
+
+                    if (taskDescriptionUpdate.LabourCost != td3.LabourCost)
+                    {
+                        taskDescriptionUpdate.LabourCost = td3.LabourCost;
+                    }
+
+                    if (taskDescriptionUpdate.PartsPrice != td3.PartsPrice)
+                    {
+                        taskDescriptionUpdate.PartsPrice = td3.PartsPrice;
+                    }
+
+                    if (taskDescriptionUpdate.TotalTaskCost != td3.TotalTaskCost)
+                    {
+                        taskDescriptionUpdate.TotalTaskCost = td3.TotalTaskCost;
+                    }
+
+                }
+            }
+
+            // Removals implmentation
+            if (entity.TaskDescriptions.Count < dbEntity.TaskDescriptions.Count)
+            {
+                List<TaskDescriptionV3> tdsToremove = new List<TaskDescriptionV3>();
+
+                foreach (TaskDescriptionV3 td3R in dbEntity.TaskDescriptions)
+                {
+                    TaskDescriptionV3 taskDescriptionRemoval = entity.TaskDescriptions.
+                        Where(td => td.Task_Description_ID == td3R.Task_Description_ID).FirstOrDefault();
+
+                    if (taskDescriptionRemoval == null)
+                    {
+                        tdsToremove.Add(td3R);
+                    }
+
+                }
+
+                for (var i = 0; i < tdsToremove.Count; i++)
+                {
+                    dbEntity.TaskDescriptions.Remove(tdsToremove[i]);
+                }
+
+            }
         }
     }
 }

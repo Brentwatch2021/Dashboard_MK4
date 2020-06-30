@@ -12,8 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Dashboard_MK4.Models.Repository;
-using Dashboard_MK4.Models.DataManager;
 using Dashboard_MK4.Models.V2_Models;
 using Dashboard_MK4.Models.V2_Repository;
 using Dashboard_MK4.Models.V2_DataManager;
@@ -58,8 +56,6 @@ namespace Dashboard_MK4
             services.AddScoped<IJTFA_Client_Data_Repository<JTFA_Client>, JTFA_Client_Manager>();
             services.AddScoped<IJobCardDataRepository<Job_Card>, Job_Card_Manager>();
             services.AddDbContext<Job_Card_Context>(opts => opts.UseSqlServer(envDb));
-            services.AddDbContext<EmployeeContext>(opts => opts.UseSqlServer(envDb));
-            services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
             services.AddControllers();
 
             // Throws error that  max json length is exceeded this method allows it to be ignored without making changes to the model

@@ -54,8 +54,6 @@ namespace Dashboard_MK4
             services.AddDbContext<Vehicle_Context>(opts => opts.UseSqlServer(envDb));
             services.AddScoped<IVehicleDataRepository<Vehicle>, Vehicle_Manager>();
             services.AddScoped<IJTFA_Client_Data_Repository<JTFA_Client>, JTFA_Client_Manager>();
-            services.AddScoped<IJobCardDataRepository<Job_Card>, Job_Card_Manager>();
-            services.AddDbContext<Job_Card_Context>(opts => opts.UseSqlServer(envDb));
             services.AddControllers();
 
             // Throws error that  max json length is exceeded this method allows it to be ignored without making changes to the model

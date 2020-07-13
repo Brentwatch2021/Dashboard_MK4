@@ -43,7 +43,7 @@ namespace Dashboard_MK4
 
             string prodEnvDb = Configuration["ConnectionString:Azure_Server_DB"];
             string devEnvDb = Configuration["ConnectionString:EmployeeDBMk4"];
-            string envDb = prodEnvDb;
+            string envDb = devEnvDb;
 
             services.AddDbContext<JobCard_TaskDescriptions_Context>(opts => opts.UseSqlServer(envDb));
             services.AddDbContext<JTFA_Task_Description_Context>(opts => opts.UseSqlServer(envDb));

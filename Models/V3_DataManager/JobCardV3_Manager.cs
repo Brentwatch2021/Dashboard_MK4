@@ -1,7 +1,9 @@
 ﻿using Dashboard_MK4.Models.V2_Models;
 using Dashboard_MK4.Models.V3_Models;
 using Dashboard_MK4.Models.V3_Repository;
+using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,6 +91,32 @@ namespace Dashboard_MK4.Models.V3_DataManager
           
             List<JobCardV3> jobcards = _jobCard_TaskDescriptions_Context.JobCardsV3.ToList();
             //jobcards.Add(jobcardTest);
+
+            MimeMessage message = new MimeMessage();
+
+            // From
+            MailboxAddress From_mailAddress = new MailboxAddress("Brent Becker","brentwatch2021@gmail.com");
+            message.From.Add(From_mailAddress);
+            // To
+            MailboxAddress TO_mailAddress = new MailboxAddress("Brent Becker", "beckerbrent04@gmail.com");
+            message.To.Add(TO_mailAddress);
+
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = "<h1>Hello World!</h1>";
+            bodyBuilder.TextBody = "Hello World!";
+
+            message.Body = bodyBuilder.ToMessageBody();
+
+            // SMTP
+            SmtpClient client = new SmtpClient();
+            client.Connect("smtp.gmail.com", 465, true);
+            client.Authenticate("brentwatch2021@gmail.com", "ICanandwill2021");
+
+            // Send Message
+            client.Send(message);
+            client.Disconnect(true);
+            client.Dispose();
+
 
             return jobcards;
             //return _jobCard_TaskDescriptions_Context.JobCardsV3.Include(jc => jc.Vehicle).Include(jcc => jcc.JTFA_Client).Include(jct => jct.TaskDescriptions).ToList(); ;

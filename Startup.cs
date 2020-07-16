@@ -18,7 +18,6 @@ using Dashboard_MK4.Models.V2_DataManager;
 using Dashboard_MK4.Models.V3_Models;
 using Dashboard_MK4.Models.V3_DataManager;
 using Dashboard_MK4.Models.V3_Repository;
-using EmailService;
 
 namespace Dashboard_MK4
 {
@@ -42,7 +41,7 @@ namespace Dashboard_MK4
             services.AddScoped<IEmailSender, EmailSender>();*/
 
             string prodEnvDb = Configuration["ConnectionString:Azure_Server_DB"];
-            string devEnvDb = Configuration["ConnectionString:EmployeeDBMk4"];
+            string devEnvDb = Configuration["ConnectionString:JTFA_DB"];
             string envDb = devEnvDb;
 
             services.AddDbContext<JobCard_TaskDescriptions_Context>(opts => opts.UseSqlServer(envDb));

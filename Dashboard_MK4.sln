@@ -5,12 +5,6 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard_MK4", "Dashboard_MK4.csproj", "{097423FC-76F3-43BE-9808-AEACE08B8006}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "..\EmailService\EmailService.csproj", "{FB11528A-2FB7-4BD5-B01A-F2D8D89B653E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceTemplateBuilder", "..\InvoiceTemplateBuilder\InvoiceTemplateBuilder.csproj", "{8AAB7337-92CA-46DE-AED8-DE85EC505F76}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTFA_WEB_APP", "..\JTFA_WEB_APP\JTFA_WEB_APP.csproj", "{3EBBD540-BDA0-4A0D-8067-A726FA69B176}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,18 +15,6 @@ Global
 		{097423FC-76F3-43BE-9808-AEACE08B8006}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097423FC-76F3-43BE-9808-AEACE08B8006}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097423FC-76F3-43BE-9808-AEACE08B8006}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB11528A-2FB7-4BD5-B01A-F2D8D89B653E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB11528A-2FB7-4BD5-B01A-F2D8D89B653E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB11528A-2FB7-4BD5-B01A-F2D8D89B653E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB11528A-2FB7-4BD5-B01A-F2D8D89B653E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AAB7337-92CA-46DE-AED8-DE85EC505F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AAB7337-92CA-46DE-AED8-DE85EC505F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AAB7337-92CA-46DE-AED8-DE85EC505F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AAB7337-92CA-46DE-AED8-DE85EC505F76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EBBD540-BDA0-4A0D-8067-A726FA69B176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EBBD540-BDA0-4A0D-8067-A726FA69B176}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EBBD540-BDA0-4A0D-8067-A726FA69B176}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EBBD540-BDA0-4A0D-8067-A726FA69B176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -92,6 +92,8 @@ namespace Dashboard_MK4.Models.V3_DataManager
             List<JobCardV3> jobcards = _jobCard_TaskDescriptions_Context.JobCardsV3.ToList();
             //jobcards.Add(jobcardTest);
 
+            /*
+
             MimeMessage message = new MimeMessage();
 
             // From
@@ -116,7 +118,7 @@ namespace Dashboard_MK4.Models.V3_DataManager
             client.Send(message);
             client.Disconnect(true);
             client.Dispose();
-
+            */
 
             return jobcards;
             //return _jobCard_TaskDescriptions_Context.JobCardsV3.Include(jc => jc.Vehicle).Include(jcc => jcc.JTFA_Client).Include(jct => jct.TaskDescriptions).ToList(); ;

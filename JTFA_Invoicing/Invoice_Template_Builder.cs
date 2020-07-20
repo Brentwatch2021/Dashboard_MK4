@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dashboard_MK4.Models.V2_DataManager
+namespace Dashboard_MK4.JTFA_Invoicing
 {
-    public class JTFA_Invoice_Manager
+    public class Invoice_Template_Builder
     {
     }
 }

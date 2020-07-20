@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Dashboard_MK4.Migrations
+namespace Dashboard_MK4.Migrations.JTFA_Invoice_
 {
-    [DbContext(typeof(JobCard_TaskDescriptions_Context))]
-    [Migration("20200716064731_SetupJobCardV3DbTable")]
-    partial class SetupJobCardV3DbTable
+    [DbContext(typeof(JTFA_Invoice_Context))]
+    [Migration("20200716110711_AddingJTFA_Invoice")]
+    partial class AddingJTFA_Invoice
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasKey("JTFA_CLIENT_ID");
 
-                    b.ToTable("JTFA_Clients");
+                    b.ToTable("JTFA_Client");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V2_Models.Vehicle", b =>
@@ -73,24 +73,26 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasKey("Vehicle_ID");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicle");
                 });
 
-            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.Client_Display_ID", b =>
+            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JTFA_Invoice", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("JTFA_Invoice_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ClientName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("INV_Number")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("Client_ID_Display")
+                    b.Property<Guid?>("JobcardV3JobCardID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ID");
+                    b.HasKey("JTFA_Invoice_ID");
 
-                    b.ToTable("Client_Display_ID");
+                    b.HasIndex("JobcardV3JobCardID");
+
+                    b.ToTable("JTFA_Invoice");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JobCardV3", b =>
@@ -98,9 +100,6 @@ namespace Dashboard_MK4.Migrations
                     b.Property<Guid>("JobCardID")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("JobCardID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ClientDisplayID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("JTFA_CLIENT_ID")
@@ -112,35 +111,16 @@ namespace Dashboard_MK4.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<Guid?>("VehicleDisplayID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("VehicleV3Vehicle_ID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("Vehicle_ID")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("JobCardID");
 
-                    b.HasIndex("ClientDisplayID");
-
                     b.HasIndex("JTFA_CLIENT_ID");
-
-                    b.HasIndex("VehicleDisplayID");
-
-                    b.HasIndex("VehicleV3Vehicle_ID");
 
                     b.HasIndex("Vehicle_ID");
 
-                    b.ToTable("JobCardsV3");
-
-                    b.HasData(
-                        new
-                        {
-                            JobCardID = new Guid("00000000-0000-0000-0000-000000000012"),
-                            JobCardName = "Clutch Replacement"
-                        });
+                    b.ToTable("JobCardV3");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.TaskDescriptionV3", b =>
@@ -176,75 +156,21 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasIndex("JobCardV3JobCardID");
 
-                    b.ToTable("TaskDescriptions");
+                    b.ToTable("TaskDescriptionV3");
                 });
 
-            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.VehicleV3", b =>
+            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JTFA_Invoice", b =>
                 {
-                    b.Property<Guid>("Vehicle_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Engine_Number")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Make")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Mileage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("REG")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VIN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Year")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Vehicle_ID");
-
-                    b.ToTable("VehicleV3");
-                });
-
-            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.Vehicle_Display_ID", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("VehicleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Vehicle_ID_Display")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Vehicle_Display_ID");
+                    b.HasOne("Dashboard_MK4.Models.V3_Models.JobCardV3", "JobcardV3")
+                        .WithMany()
+                        .HasForeignKey("JobcardV3JobCardID");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JobCardV3", b =>
                 {
-                    b.HasOne("Dashboard_MK4.Models.V3_Models.Client_Display_ID", "ClientDisplay")
-                        .WithMany()
-                        .HasForeignKey("ClientDisplayID");
-
                     b.HasOne("Dashboard_MK4.Models.V2_Models.JTFA_Client", "JTFA_Client")
                         .WithMany()
                         .HasForeignKey("JTFA_CLIENT_ID");
-
-                    b.HasOne("Dashboard_MK4.Models.V3_Models.Vehicle_Display_ID", "VehicleDisplay")
-                        .WithMany()
-                        .HasForeignKey("VehicleDisplayID");
-
-                    b.HasOne("Dashboard_MK4.Models.V3_Models.VehicleV3", "VehicleV3")
-                        .WithMany()
-                        .HasForeignKey("VehicleV3Vehicle_ID");
 
                     b.HasOne("Dashboard_MK4.Models.V2_Models.Vehicle", "Vehicle")
                         .WithMany()

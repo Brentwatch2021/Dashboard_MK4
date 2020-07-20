@@ -40,12 +40,21 @@ namespace Dashboard_MK4
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();*/
 
+
+            services.AddApiVersioning(o => {
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
             string prodEnvDb = Configuration["ConnectionString:Azure_Server_DB"];
             string devEnvDb = Configuration["ConnectionString:JTFA_DB"];
             string envDb = devEnvDb;
 
+            services.AddDbContext<JTFA_Invoice_Context>(opts => opts.UseSqlServer(envDb));
             services.AddDbContext<JobCard_TaskDescriptions_Context>(opts => opts.UseSqlServer(envDb));
             services.AddDbContext<JTFA_Task_Description_Context>(opts => opts.UseSqlServer(envDb));
+            services.AddScoped<IJTFA_Invoice_Data_Repository<JTFA_Invoice>, JTFA_Invoice_Manager>();
             services.AddScoped<ITaskDescription_Data_Repository<TaskDescription>, TaskDescription_Data_Manager>();
             services.AddScoped<IJobCardV3DataRepository<JobCardV3>, JobCardV3_Manager>();
             services.AddDbContext<JTFA_Client_Context>(opts => opts.UseSqlServer(envDb));
@@ -80,6 +89,9 @@ namespace Dashboard_MK4
             {
                 endpoints.MapControllers();
             });
+
+
+
         }
     }
 }

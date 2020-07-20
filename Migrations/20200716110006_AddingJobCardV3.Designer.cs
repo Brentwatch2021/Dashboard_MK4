@@ -4,14 +4,16 @@ using Dashboard_MK4.Models.V3_Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dashboard_MK4.Migrations
 {
     [DbContext(typeof(JobCard_TaskDescriptions_Context))]
-    partial class JobCard_TaskDescriptions_ContextModelSnapshot : ModelSnapshot
+    [Migration("20200716110006_AddingJobCardV3")]
+    partial class AddingJobCardV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dashboard_MK4.Controllers
 {
-    [Route("api/JTFA_Client")]
+    [Route("api/{version:apiVersion}/JTFA_Client")]
     [ApiController]
     public class JTFA_Client_Controller : ControllerBase
     {

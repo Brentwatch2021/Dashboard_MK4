@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dashboard_MK4.Controllers
 {
-    [Route("api/taskdescription")]
+    [Route("api/{version:apiVersion}/taskdescription")]
     [ApiController]
     public class TaskDescription_Controller : ControllerBase
     {

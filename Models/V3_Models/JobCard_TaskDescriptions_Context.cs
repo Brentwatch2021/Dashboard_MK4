@@ -15,19 +15,8 @@ namespace Dashboard_MK4.Models.V3_Models
 
         public DbSet<JobCardV3> JobCardsV3 { get; set; }
         public DbSet<TaskDescriptionV3> TaskDescriptions { get; set; }
-
         public DbSet<Vehicle> Vehicles { get; set; }
-
-        //public DbSet<Vehicle> Vehicles { get; set; }
-
-        //public DbSet<JobCard_Name_TaskDesc_ID> TaskDescripsDisplayIds { get; set; }
-        //public Vehicle_Display_ID VehicleDisplayID { get; set; }
-        
-        //public Client_Display_ID ClientDisplayID { get; set; }
-
         public DbSet<JTFA_Client> JTFA_Clients { get; set; }
-
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

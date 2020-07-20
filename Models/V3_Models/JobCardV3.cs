@@ -23,18 +23,8 @@ namespace Dashboard_MK4.Models.V3_Models
 
         public ICollection<TaskDescriptionV3> TaskDescriptions { get; set; }
 
-        // IGNORE the attributes below this is for the Mobile API
-        public Vehicle_Display_ID VehicleDisplay { get; set; }
-
-        public Client_Display_ID ClientDisplay { get; set; }
-
-        public VehicleV3 VehicleV3 { get; set; }
-
         public Vehicle Vehicle { get; set; }
 
         public JTFA_Client JTFA_Client { get; set; }
-
-
-
     }
 }

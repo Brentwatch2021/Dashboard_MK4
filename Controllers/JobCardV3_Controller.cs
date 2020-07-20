@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dashboard_MK4.Controllers
 {
-    [Route("api/jobcardV3")]
+    [Route("api/{version:apiVersion}/jobcardV3")]
     [ApiController]
     public class JobCardV3_Controller : ControllerBase
     {
@@ -50,10 +50,7 @@ namespace Dashboard_MK4.Controllers
             }
 
             _dataRepository.Add(jobcard);
-            return CreatedAtRoute(
-                  "Get",
-                  new { Id = jobcard.JobCardID },
-                  jobcard);
+            return CreatedAtRoute("Get", new { Id = jobcard.JobCardID },jobcard);
         }
 
         // DELETE: api/jobcard

@@ -92,15 +92,15 @@ namespace Dashboard_MK4.Models.V3_DataManager
             List<JobCardV3> jobcards = _jobCard_TaskDescriptions_Context.JobCardsV3.ToList();
             //jobcards.Add(jobcardTest);
 
-            /*
-
+            
+            /* Email Works with Darren Becker's Domain SMTP CREDS
             MimeMessage message = new MimeMessage();
-
-            // From
-            MailboxAddress From_mailAddress = new MailboxAddress("Brent Becker","brentwatch2021@gmail.com");
+           
+             // From
+             MailboxAddress From_mailAddress = new MailboxAddress("Brent Becker", "beckerbrent04@gmail.com");
             message.From.Add(From_mailAddress);
             // To
-            MailboxAddress TO_mailAddress = new MailboxAddress("Brent Becker", "beckerbrent04@gmail.com");
+            MailboxAddress TO_mailAddress = new MailboxAddress("Brent Becker", "brentwatch2021@gmail.com");
             message.To.Add(TO_mailAddress);
 
             BodyBuilder bodyBuilder = new BodyBuilder();
@@ -111,8 +111,9 @@ namespace Dashboard_MK4.Models.V3_DataManager
 
             // SMTP
             SmtpClient client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 465, true);
-            client.Authenticate("brentwatch2021@gmail.com", "ICanandwill2021");
+            // TODO Store these creds somewhere safe
+            client.Connect("smtp.deepbluecw.co.za", 587, false);
+            client.Authenticate("info@deepbluecw.co.za", "bjD9cuuv69Z");
 
             // Send Message
             client.Send(message);

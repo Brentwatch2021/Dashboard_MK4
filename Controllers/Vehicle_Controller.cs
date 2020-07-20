@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dashboard_MK4.Controllers
 {
-    [Route("api/vehicle")]
+    [Route("api/{version:apiVersion}/vehicle")]
     [ApiController]
     public class Vehicle_Controller : ControllerBase
     {

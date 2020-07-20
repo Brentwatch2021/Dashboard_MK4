@@ -3,23 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dashboard_MK4.Migrations
 {
-    public partial class SetupJobCardV3DbTable : Migration
+    public partial class AddingJobCardV3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Client_Display_ID",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    ClientName = table.Column<string>(nullable: true),
-                    Client_ID_Display = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Client_Display_ID", x => x.ID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "JTFA_Clients",
                 columns: table => new
@@ -33,19 +20,6 @@ namespace Dashboard_MK4.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JTFA_Clients", x => x.JTFA_CLIENT_ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vehicle_Display_ID",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    VehicleName = table.Column<string>(nullable: true),
-                    Vehicle_ID_Display = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vehicle_Display_ID", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,32 +41,11 @@ namespace Dashboard_MK4.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleV3",
-                columns: table => new
-                {
-                    Vehicle_ID = table.Column<Guid>(nullable: false),
-                    Make = table.Column<string>(nullable: true),
-                    VIN = table.Column<string>(nullable: true),
-                    REG = table.Column<string>(nullable: true),
-                    Mileage = table.Column<string>(nullable: true),
-                    Engine_Number = table.Column<string>(nullable: true),
-                    Year = table.Column<string>(nullable: true),
-                    CC = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleV3", x => x.Vehicle_ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "JobCardsV3",
                 columns: table => new
                 {
                     JobCardID = table.Column<Guid>(nullable: false),
                     JobCardName = table.Column<string>(maxLength: 100, nullable: false),
-                    VehicleDisplayID = table.Column<Guid>(nullable: true),
-                    ClientDisplayID = table.Column<Guid>(nullable: true),
-                    VehicleV3Vehicle_ID = table.Column<Guid>(nullable: true),
                     Vehicle_ID = table.Column<Guid>(nullable: true),
                     JTFA_CLIENT_ID = table.Column<Guid>(nullable: true)
                 },
@@ -100,28 +53,10 @@ namespace Dashboard_MK4.Migrations
                 {
                     table.PrimaryKey("PK_JobCardsV3", x => x.JobCardID);
                     table.ForeignKey(
-                        name: "FK_JobCardsV3_Client_Display_ID_ClientDisplayID",
-                        column: x => x.ClientDisplayID,
-                        principalTable: "Client_Display_ID",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_JobCardsV3_JTFA_Clients_JTFA_CLIENT_ID",
                         column: x => x.JTFA_CLIENT_ID,
                         principalTable: "JTFA_Clients",
                         principalColumn: "JTFA_CLIENT_ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_JobCardsV3_Vehicle_Display_ID_VehicleDisplayID",
-                        column: x => x.VehicleDisplayID,
-                        principalTable: "Vehicle_Display_ID",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_JobCardsV3_VehicleV3_VehicleV3Vehicle_ID",
-                        column: x => x.VehicleV3Vehicle_ID,
-                        principalTable: "VehicleV3",
-                        principalColumn: "Vehicle_ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_JobCardsV3_Vehicles_Vehicle_ID",
@@ -156,28 +91,13 @@ namespace Dashboard_MK4.Migrations
 
             migrationBuilder.InsertData(
                 table: "JobCardsV3",
-                columns: new[] { "JobCardID", "ClientDisplayID", "JTFA_CLIENT_ID", "JobCardName", "VehicleDisplayID", "VehicleV3Vehicle_ID", "Vehicle_ID" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000012"), null, null, "Clutch Replacement", null, null, null });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobCardsV3_ClientDisplayID",
-                table: "JobCardsV3",
-                column: "ClientDisplayID");
+                columns: new[] { "JobCardID", "JTFA_CLIENT_ID", "JobCardName", "Vehicle_ID" },
+                values: new object[] { new Guid("00000000-0000-0000-0000-000000000012"), null, "Clutch Replacement", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobCardsV3_JTFA_CLIENT_ID",
                 table: "JobCardsV3",
                 column: "JTFA_CLIENT_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobCardsV3_VehicleDisplayID",
-                table: "JobCardsV3",
-                column: "VehicleDisplayID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobCardsV3_VehicleV3Vehicle_ID",
-                table: "JobCardsV3",
-                column: "VehicleV3Vehicle_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobCardsV3_Vehicle_ID",
@@ -199,16 +119,7 @@ namespace Dashboard_MK4.Migrations
                 name: "JobCardsV3");
 
             migrationBuilder.DropTable(
-                name: "Client_Display_ID");
-
-            migrationBuilder.DropTable(
                 name: "JTFA_Clients");
-
-            migrationBuilder.DropTable(
-                name: "Vehicle_Display_ID");
-
-            migrationBuilder.DropTable(
-                name: "VehicleV3");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Dashboard_MK4.Migrations
+namespace Dashboard_MK4.Migrations.JTFA_Invoice_
 {
-    [DbContext(typeof(JobCard_TaskDescriptions_Context))]
-    partial class JobCard_TaskDescriptions_ContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(JTFA_Invoice_Context))]
+    partial class JTFA_Invoice_ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -39,7 +39,7 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasKey("JTFA_CLIENT_ID");
 
-                    b.ToTable("JTFA_Clients");
+                    b.ToTable("JTFA_Client");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V2_Models.Vehicle", b =>
@@ -71,7 +71,29 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasKey("Vehicle_ID");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicle");
+                });
+
+            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JTFA_Invoice", b =>
+                {
+                    b.Property<Guid>("JTFA_Invoice_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email_Recipients")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("INV_Number")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("JobcardV3JobCardID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("JTFA_Invoice_ID");
+
+                    b.HasIndex("JobcardV3JobCardID");
+
+                    b.ToTable("JTFA_Invoice");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JobCardV3", b =>
@@ -99,14 +121,7 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasIndex("Vehicle_ID");
 
-                    b.ToTable("JobCardsV3");
-
-                    b.HasData(
-                        new
-                        {
-                            JobCardID = new Guid("00000000-0000-0000-0000-000000000012"),
-                            JobCardName = "Clutch Replacement"
-                        });
+                    b.ToTable("JobCardV3");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.TaskDescriptionV3", b =>
@@ -142,7 +157,14 @@ namespace Dashboard_MK4.Migrations
 
                     b.HasIndex("JobCardV3JobCardID");
 
-                    b.ToTable("TaskDescriptions");
+                    b.ToTable("TaskDescriptionV3");
+                });
+
+            modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JTFA_Invoice", b =>
+                {
+                    b.HasOne("Dashboard_MK4.Models.V3_Models.JobCardV3", "JobcardV3")
+                        .WithMany()
+                        .HasForeignKey("JobcardV3JobCardID");
                 });
 
             modelBuilder.Entity("Dashboard_MK4.Models.V3_Models.JobCardV3", b =>

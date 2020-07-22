@@ -42,6 +42,7 @@ namespace Dashboard_MK4.Models.V3_DataManager
         {
             dbEntity.INV_Number = entity.INV_Number;
             dbEntity.Email_Recipients = entity.Email_Recipients;
+            dbEntity.JobCardID = entity.JobCardID;
             this._jTFA_Invoice_Context.SaveChanges();
         }
     }

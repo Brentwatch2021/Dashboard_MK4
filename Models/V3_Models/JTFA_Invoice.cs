@@ -16,7 +16,7 @@ namespace Dashboard_MK4.Models.V3_Models
 
         public int INV_Number { get; set; }
 
-        public JobCardV3 JobcardV3 { get; set; }
+        public Guid JobCardID { get; set; }
 
         public string Email_Recipients { get; set; }
 

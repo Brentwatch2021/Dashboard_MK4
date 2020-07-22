@@ -4,14 +4,16 @@ using Dashboard_MK4.Models.V3_Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dashboard_MK4.Migrations.JTFA_Invoice_
 {
     [DbContext(typeof(JTFA_Invoice_Context))]
-    partial class JTFA_Invoice_ContextModelSnapshot : ModelSnapshot
+    [Migration("20200722093304_Remove_Reference_Navigation_Property_JobCardV3_From_JTFA_Invoice_Type_And_Add_ForeignKey")]
+    partial class Remove_Reference_Navigation_Property_JobCardV3_From_JTFA_Invoice_Type_And_Add_ForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

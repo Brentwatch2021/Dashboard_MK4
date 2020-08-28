@@ -18,6 +18,7 @@ using Dashboard_MK4.Models.V2_DataManager;
 using Dashboard_MK4.Models.V3_Models;
 using Dashboard_MK4.Models.V3_DataManager;
 using Dashboard_MK4.Models.V3_Repository;
+using Dashboard_MK4.Services;
 
 namespace Dashboard_MK4
 {
@@ -40,6 +41,8 @@ namespace Dashboard_MK4
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();*/
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
             services.AddApiVersioning(o => {
                 o.ReportApiVersions = true;

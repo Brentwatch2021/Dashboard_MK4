@@ -13,6 +13,11 @@ namespace Dashboard_MK4.Models.V3_Models
         {
         }
 
+        public JobCard_TaskDescriptions_Context() : base()
+        {
+        }
+
+
         public DbSet<JobCardV3> JobCardsV3 { get; set; }
         public DbSet<TaskDescriptionV3> TaskDescriptions { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }

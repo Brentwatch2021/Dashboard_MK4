@@ -13,7 +13,7 @@ namespace Dashboard_MK4.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "POESHOT", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "POESHOTS", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
@@ -37,7 +37,7 @@ namespace Dashboard_MK4.Controllers
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = "POESHOT"
+                Summary = "POESHOTS"
             })
             .ToArray();
         }

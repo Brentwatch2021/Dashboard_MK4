@@ -132,7 +132,7 @@ namespace Dashboard_MK4.Models.V3_DataManager
             {
                 dbEntity.Vehicle = entity.Vehicle;
             }
-            if (dbEntity?.JTFA_Client.JTFA_CLIENT_ID != entity?.JTFA_Client?.JTFA_CLIENT_ID)
+            if (dbEntity?.JTFA_Client != null && dbEntity?.JTFA_Client.JTFA_CLIENT_ID != entity?.JTFA_Client?.JTFA_CLIENT_ID)
             {
                 dbEntity.JTFA_Client = entity.JTFA_Client;
             }

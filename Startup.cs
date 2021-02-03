@@ -19,6 +19,10 @@ using Dashboard_MK4.Models.V3_Models;
 using Dashboard_MK4.Models.V3_DataManager;
 using Dashboard_MK4.Models.V3_Repository;
 using Dashboard_MK4.Services;
+using Dashboard_MK4.Models.N_S_Models.NS_Temperature;
+using Dashboard_MK4.Models.N_S_Models.NS_H20;
+using Dashboard_MK4.Models.NS_DataManager;
+using Dashboard_MK4.Models.NS_Repository;
 
 namespace Dashboard_MK4
 {
@@ -55,6 +59,10 @@ namespace Dashboard_MK4
             string envDb = devEnvDb;
 
             services.AddDbContext<JTFA_Invoice_Context>(opts => opts.UseSqlServer(envDb));
+            services.AddDbContext<NS_H20_Context>(opts => opts.UseSqlServer(envDb));
+            services.AddScoped<INS_H20_Repository<NS_H20>, NS_H20_Data_Manager>();
+            services.AddDbContext<NS_Temperature_Context>(opts => opts.UseSqlServer(envDb));
+            services.AddDbContext<Mail_Request_Context>(opts => opts.UseSqlServer(envDb));
             services.AddDbContext<JobCard_TaskDescriptions_Context>(opts => opts.UseSqlServer(envDb));
             services.AddDbContext<JTFA_Task_Description_Context>(opts => opts.UseSqlServer(envDb));
             services.AddScoped<IJTFA_Invoice_Data_Repository<JTFA_Invoice>, JTFA_Invoice_Manager>();

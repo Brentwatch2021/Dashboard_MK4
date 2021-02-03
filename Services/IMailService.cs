@@ -8,6 +8,6 @@ namespace Dashboard_MK4.Services
 {
     public interface IMailService
     {
-        Task SendEmailAsync(Mail_Request mail_Request);
+        Task SendEmailAsync(Mail_Request mail_Request, JobCardV3 jobCard);
     }
 }
